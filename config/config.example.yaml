@@ -1,0 +1,8 @@
+production:
+  iot_registry: 'https://platform.fiesta-iot.eu/iot-registry/api'
+  mapbox_style: 'username/code' 
+  mapbox_access_token: 'token'
+  openam_user: 'user'
+  openam_password: 'password'
+  openam_authentication_endpoint: 'https://platform.fiesta-iot.eu/openam/json/authenticate'  
+

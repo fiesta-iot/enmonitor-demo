@@ -1,0 +1,14 @@
+{"level":"info","message":"Tue, 09 Jan 2018 19:22:54 GMT - Server started (Port 3000)","timestamp":"2018-01-09T19:22:54.983Z"}
+{"level":"info","message":"Get OpenAM token: Time 748 ms","timestamp":"2018-01-09T19:22:55.676Z"}
+{"level":"info","message":"Get OpenAM token: Time 743 ms","timestamp":"2018-01-09T19:22:55.686Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:23:08 GMT - Resource discovery (total): Time 13 s # 1353","timestamp":"2018-01-09T19:23:08.410Z"}
+{"level":"info","message":"Get OpenAM token: Time 385 ms","timestamp":"2018-01-09T19:23:09.244Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:23:10 GMT - Gather stats (total): Time 1.05 s ","timestamp":"2018-01-09T19:23:10.292Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:25:06 GMT - Server started (Port 3000)","timestamp":"2018-01-09T19:25:06.309Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:25:07 GMT - Resource discovery (total): Time 744 ms # 40","timestamp":"2018-01-09T19:25:07.030Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:25:07 GMT - Gather stats (total): Time 205 ms ","timestamp":"2018-01-09T19:25:07.237Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:25:07 GMT - Get Observations (all): Time 1.01 s","timestamp":"2018-01-09T19:25:07.334Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:26:40 GMT - Server started (Port 3000)","timestamp":"2018-01-09T19:26:40.653Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:26:40 GMT - Resource discovery (total): Time 301 ms # 40","timestamp":"2018-01-09T19:26:40.938Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:26:41 GMT - Gather stats (total): Time 155 ms ","timestamp":"2018-01-09T19:26:41.095Z"}
+{"level":"info","message":"Tue, 09 Jan 2018 19:26:41 GMT - Get Observations (all): Time 500 ms","timestamp":"2018-01-09T19:26:41.157Z"}

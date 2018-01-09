@@ -1,0 +1,356 @@
+<html lang="en">
+
+<head>
+    <title>EnMonitor demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="FIESTA-IoT consortium">
+    <meta name="description" content="Dynamic Discovery of IoT Resources for Testbed Agnostic Data Access">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <!-- <script src="/bower_components/jquery/dist/jquery.min.js"></script> -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!--Socket io  -->
+    <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
+    <script src="bower_components/mathjs/dist/math.min.js"></script>
+
+    <script type="text/javascript" src="js/utils/globals.js"></script>
+    <script type="text/javascript" src="js/utils/utils.js"></script>
+    <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <!-- Proprietary style sheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/datatables.css">
+
+</head>
+
+<body>
+
+    <!-- External libs -->
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+    <script src='//api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css" /> -->
+    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+    <!-- Marker cluster group -->
+    <script src='bower_components/leaflet.markercluster/dist/leaflet.markercluster.js'></script>
+    <link href='bower_components/leaflet.markercluster/dist/MarkerCluster.css' rel='stylesheet' />
+    <link href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' rel='stylesheet' />
+
+    <!-- Bootstrap toogle -->
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <!-- Bootstrap slider-->
+    <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+    <link href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
+
+    <!-- Leaflet context menu -->
+    <!-- <script src="/node_modules/leaflet-contextmenu/dist/leaflet.contextmenu.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/leaflet-contextmenu/dist/leaflet.contextmenu.min.css" /> -->
+    <!-- Leaflet get active layers plugin -->
+    <script src="bower_components/leaflet.active-layers/dist/leaflet.active-layers.min.js"></script>
+    <!-- Prevent circular JSON -->
+    <script src="bower_components/circular-json/build/circular-json.js"></script>
+    <!--Heatmap JS-->
+    <script src="bower_components/heatmap.js-amd/build/heatmap.min.js"></script>
+    <script src="bower_components/heatmap.js-amd/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
+
+    <!-- Lodash library -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <!-- Scripts (from the project) -->
+    <script type="text/javascript" src="js/map/leaflet-main.js"></script>
+    <script type="text/javascript" src="js/map/leaflet-event-manager.js"></script>
+    <script type="text/javascript" src="js/controllers/socket-io-event-handler.js"></script>
+    <script type="text/javascript" src="js/controllers/jquery-event-handler.js"></script>
+    <script type="text/javascript" src="js/map/heatmap.js"></script>
+    <!-- Browserify scripting -> When everything is running, clean this file through Browserify-->
+    <!-- div that contains the map -->
+    <div id="basic">
+        <div id="mapid"> </div>
+        <!-- Initialize the map -->
+        <script type="text/javascript">
+            // Get Mapbox credentials and initialize the map (intrinsic process)
+            socket.emit('mapbox_credentials_request');
+        </script>
+        <!-- </div> -->
+        <!-- Place companion alongside the map (CSS) -->
+        <div id="float-menu">
+            <!-- Test zone -->
+            <div id="tab-menu">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#heatmap">Heatmap</a></li>
+                    <li><a href="#discovery">Discovery </a></li>
+                    <li><a href="#history">History</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="discovery" class="tab-pane">
+                        <div class="overlay">
+                            <!-- <div class="btn-group" data-toggle="buttons" id="discovery_options"> -->
+                            <!-- <label class="btn btn-primary btn-discovery active"><input type="radio" name="discovery_option" id="discovery_local"  autocomplete="off" checked> Local</label> -->
+                            <!-- <label class="btn btn-primary btn-discovery "><input type="radio" name="discovery_option" id="discovery_sparql" autocomplete="off"> SPARQL</label> -->
+                            <!-- </div> -->
+                            <!-- <div class="btn-group " data-toggle="buttons" id="last_value_options"> -->
+                            <!-- <label class="btn btn-primary btn-last "><input type="radio" name="last_value_option" id="last_value_endpoint" autocomplete="off"> Endpoint</label> -->
+                            <!-- <label class="btn btn-primary btn-last active"><input type="radio" name="last_value_option" id="last_value_sparql" autocomplete="off" checked> SPARQL</label> -->
+                            <!-- </div> -->
+                            <hr>
+                            <div class="checkbox" id="temperature">
+                                <label>
+                        <input id='temperature_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group' > Temperature
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='illuminance_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> Illuminance
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='atm_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> Atmospheric pressure
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='humidity_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> Relative humidity
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='windspeed_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> Windspeed
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='sound_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> Sound pressure level
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='sun_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> Solar radiation
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='o3_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> O<sub>3</sub> concentration
+                      </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                        <input id='co_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='phenomena-toggle-group'> CO concentration
+                      </label>
+                            </div>
+                            <hr>
+                            <div class="button" id="sendButtons">
+                                <label>
+                        <button id="send_discovery_query" type="button" class="btn btn-default">Filter</button>
+                      </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="heatmap" class="tab-pane fade in active">
+                        <div class="checkbox" id="heatmap_header">
+                            <label>
+                      <!--<input id='heatmap_toggle' type="checkbox" checked data-toggle="toggle" data-size="small" class='heatmap-group'> Heatmap-->
+                      <input id='heatmap_toggle' type="checkbox" data-toggle="toggle" data-size="small" class='heatmap-group'> Heatmap
+                    </label>
+                        </div>
+                        <hr>
+                        <!-- <div class="btn-group btn-group-vertical" data-toggle="buttons"> -->
+                        <div class="btn-group btn-group-vertical" data-toggle="buttons">
+                            <table id="heatmap_table">
+                                <tr>
+                                    <th>
+                                        <!-- <input id="temperature_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group" name="test" checked>Temperature (ºC)</button> -->
+                                        <label class="btn btn-primary active heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="temperature_heatmap" value="AirTemperature" checked> Temperature (ºC)  </label>
+                                    </th>
+                                    <th><input id="temperature_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id='temperature_slider' type="text" data-slider-min="-20" data-slider-max="50" data-slider-step="1" data-slider-value="17"
+                                            data-slider-enabled="true" data-slider-enabled="true" /> <b>&nbsp[-20,50]</b> </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <input id="illuminance_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group" name="test">Iluminance (lux)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" value="Illuminance" id="illuminance_heatmap"> Iluminance (lux) </label>
+                                    </th>
+                                    <th>
+                                        <input id="illuminance_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id="illuminance_slider" type="text" data-slider-min="0" data-slider-max="1000000" data-slider-step="1000" data-slider-value="3000" data-slider-enabled="true"
+                                        />
+                                        <b>&nbsp[0,10<sup>6</sup>]</b></th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <button id="atm_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group">Atmospheric Pressure (mBar)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="atm_heatmap" value="AtmosphericPressure"> Atmospheric Pressure (mBar) </label>
+                                    </th>
+                                    <th>
+                                        <input id="atm_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id="atm_slider" type="text" data-slider-min="0" data-slider-max="2000" data-slider-step="1" data-slider-value="17" data-slider-enabled="true" />
+                                        <b>&nbsp[0,2000]</b></th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <button id="humidity_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group">Relative Humidity (%)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="humidity_heatmap" value="RelativeHumidity"> Relative Humidity (%) </label>
+                                    </th>
+                                    <th>
+                                        <input id="humidity_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id="humidity_slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="30" data-slider-enabled="true" />
+                                        <b>&nbsp[0,100]</b>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <button id="windspeed_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group">Windspeed (m/s)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="windspeed_heatmap" value="WindSpeed"> Windspeed (km/h) </label>
+                                    </th>
+                                    <th>
+                                        <input id="windspeed_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id='windspeed_slider' type="text" data-slider-min="0" data-slider-max="350" data-slider-step="1" data-slider-value="15" data-slider-enabled="true" />
+                                        <b>&nbsp[0,350]</b>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <button id="sound_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group">Sound Pressure Level (dB)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="sound_heatmap" value="SoundPressureLevel"> Sound pressure level (dB) </label>
+                                    </th>
+                                    <th>
+                                        <input id="sound_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id='sound_slider' type="text" data-slider-min="0" data-slider-max="150" data-slider-step="1" data-slider-value="15" data-slider-enabled="true" />
+                                        <b>&nbsp[0,150]</b>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <button id="sun_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group">Solar Radiation (W/m<sup>2</sup>)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="sun_heatmap" value="SolarRadiation"> Solar Radiation (W/m<sup>2</sup>) </label>
+                                    </th>
+                                    <th>
+                                        <input id="sun_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id='sun_slider' type="text" data-slider-min="0" data-slider-max="2000" data-slider-step="1" data-slider-value="17" data-slider-enabled="true" />
+                                        <b>&nbsp[0,2000]</b>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <button id="o3_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group">O<sub>3</sub> (mg/m<sup>3</sup>)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="o3_heatmap" value="ChemicalAgentAtmosphericConcentrationO3"> O<sub>3</sub> (&#956g/m<sup>3</sup>) </label>
+                                    </th>
+                                    <th>
+                                        <input id="o3_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id='o3_slider' type="text" data-slider-min="0" data-slider-max="1000" data-slider-step="1" data-slider-value="17" data-slider-enabled="true" />
+                                        <b>&nbsp[0,1000]</b>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <!-- <button id="co_heatmap" type="radio" class="btn btn-primary heatmap_toggle_group">CO (mg/m<sup>3</sup>)</button> -->
+                                        <label class="btn btn-primary  heatmap_toggle_group"><input type="radio" name="heatmap_radio" id="co_heatmap" value="ChemicalAgentAtmosphericConcentrationCO"> CO (mg/m<sup>3</sup>) </label>
+                                    </th>
+                                    <th>
+                                        <input id="co_slider" style="width: 100px" class="heatmap_slider_class" data-slider-id='co_slider' type="text" data-slider-min="0" data-slider-max="1000" data-slider-step="1" data-slider-value="17" data-slider-enabled="true" />
+                                        <b>&nbsp[0,1000]</b>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="button" id="heatmap_button">
+                            <label>
+                                <button id="heatmap_update" type="button" class="btn btn-default">Update heatmap conditions</button>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="history" class="tab-pane fade">
+                        <div id="history-dropdown" class="dropdown">
+                            <button id="history_option" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose phenomenon<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Air Temperature</a></li>
+                                <li><a href="#">Illuminance</a></li>
+                                <li><a href="#">Atmospheric Pressure</a></li>
+                                <li><a href="#">Relative Humidity</a></li>
+                                <li><a href="#">Windspeed</a></li>
+                                <li><a href="#">Sound (noise)</a></li>
+                                <li><a href="#">Solar radiation</a></li>
+                                <li><a href="#">O3 concentration</a></li>
+                                <li><a href="#">CO concentration</a></li>
+                            </ul>
+                        </div>
+                        <hr>
+                        <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+                        <script src="bower_components/d3/d3.min.js"></script>
+                        <link rel="stylesheet" type="text/css" href="./js/d3/css/violin.css">
+                        <script src="./js/d3/distrochart.js" charset="utf-8"></script>
+                        <script src="./js/d3/violin.js" charset="utf-8"></script>
+                        <div id=hist_spot>
+                            <div class="chart-wrapper" id="violin-chart"></div>
+                        </div>
+                        <hr>
+                        <div class="button" id="history_button">
+                            <label>
+                                <button id="history_update" type="button " class="btn btn-default ">Update graph</button>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $(".nav-tabs a ").click(function() {
+                        $(this).tab('show');
+                    });
+                });
+            </script>
+        </div>
+        <hr>
+        <!-- Weather station - Need to use a dynamic exposure to the available resources -->
+        <div id="weatherStationContainer ">
+            <div class="row ">
+                <div class="col-sm-1 "><img src="images/icons/raw/temperature.png" alt="Thermometer" style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "> <b class="weather_station_values" id="weather_AirTemperature">--</b> ºC
+                    <br> Temperature (ambient)</div>
+                <div class="col-sm-1 "><img src="images/icons/raw/illuminance.png" alt="Light sensor" style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_Illuminance">--</b> lux<br> Illuminance</div>
+                <div class="col-sm-1 "><img src="images/icons/raw/atmosphericPressure.png" alt="Barometer" style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_AtmosphericPressure">--</b> mBar
+                    <br> Atmospheric pressure</div>
+            </div>
+            <div class="row ">
+                <div class="col-sm-1 "><img src="images/icons/raw/soilMoistureTension.png" alt="Relative humidity sensor" style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_RelativeHumidity">--</b> %
+                    <br> Relative humidity</div>
+                <div class="col-sm-1 "><img src="images/icons/raw/windSpeed.png" alt="Anemometer" style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_WindSpeed">--</b> km/h
+                    <br> Wind speed</div>
+                <div class="col-sm-1 "><img src="images/icons/raw/soundPressureLevelAmbient.png" alt="Microphone " style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_SoundPressureLevel">--</b> dB
+                    <br> Sound pressure level</div>
+            </div>
+            <div class="row ">
+                <div class="col-sm-1 "><img src="images/icons/raw/solarRadiation.png" alt="Solar radiation sensor" style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_SolarRadiation">--</b> W/m<sup>2</sup>
+                    <br> Solar radiation</div>
+                <div class="col-sm-1 "><img src="images/icons/raw/airPollution.png" alt="03-meter " style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_chemicalAgentAtmosphericConcentrationO3">--</b> &#956g/m<sup>3</sup>
+                    <br> O3 concentration</div>
+                <div class="col-sm-1 "><img src="images/icons/raw/airPollution.png" alt="CO-meter" style="width:60px;height:60px; "></div>
+                <div class="col-sm-3 "><b class="weather_station_values" id="weather_ChemicalAgentAtmosphericConcentrationCO">--</b> mg/m<sup>3</sup>
+                    <br> CO concentration</div>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".nav-tabs a ").click(function() {
+                $(this).tab('show');
+
+            });
+            jqueryHandlerInit();
+        });
+    </script>
+    <!-- Page footer (Uncomment when once everything is ready-->
+    <div id="footer">
+        <center> <a href="http://fiesta-iot.eu/ " rel="nofollow" target="_blank"> EnMonitor &copy; FIESTA-IoT Consortium 2017</a></center>
+    </div>
+</body>
+
+</html>

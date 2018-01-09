@@ -1,0 +1,30 @@
+{
+    "name": "enmonitor-demo",
+    "description": "Dynamic Discovery of IoT Resources for Testbed Agnostic Data Access.",
+    "main": "enmonitor-demo.js",
+    "authors": [
+        "FIESTA-IoT consortium"
+    ],
+    "directory": "public/",
+    "license": "FIESTA-IoT consortium",
+    "homepage": "http://fiesta-iot.eu/",
+    "dependencies": {
+        "bootstrap-toggle": "^2.2.2",
+        "bootstrap": "^3.3.6",
+        "leaflet": "^0.7.7",
+        "leaflet.active-layers": "leaflet.activelayers#^0.3.0",
+        "leaflet-draw": "^0.3.0",
+        "leaflet.markercluster": "^0.5.0",
+        "lodash": "^4.13.1",
+        "circular-json": "^0.3.1",
+        "leaflet-groupedlayercontrol": "^0.5.0",
+        "socket.io-client": "^1.7.1",
+        "jQuery": "^3.1.1",
+        "datatables.net": "^1.10.13",
+        "d3": "^3.5.17",
+        "mathjs": "^3.10.0",
+        "Leaflet.EasyButton": "^2.0.0",
+        "heatmap.js-amd": "^2.0.5",
+        "seiyria-bootstrap-slider": "^9.8.0"
+    }
+}
