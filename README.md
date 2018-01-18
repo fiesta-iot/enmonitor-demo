@@ -1,7 +1,11 @@
 # EnMonitor Demo
 
-> IoT applications are usually built on top of proprietary platforms that collect data from IoT devices. Furthermore, most applications rely on proprietary datasets, coming from their own sources. Thereby needing to deal with issues like interoperability and heterogeneity in the data. A solution is to add another layer (a platform in the middle that addresses the above-mentioned issues) and then build applications that use data made available via such platforms. As a proof of concept, we present EnMonitor, a prototype application, that is built on top of one such platform, called FIESTA-IoT. The application provides citizens with an understanding of the environment they live in with both local and global surrounding view.
- 
+> IoT applications are usually built on top of proprietary platforms that collect data from IoT devices. Furthermore, most applications rely on proprietary datasets, coming from their own sources. Thereby needing to deal with issues like interoperability and heterogeneity in the data. A solution is to add another layer (a platform in the middle that addresses the above-mentioned issues) and then build applications that use data made available via such platforms. As a proof of concept, we present [EnMonitor](http://fiesta-iot.tlmat-unican.es/enmonitor-demo), a prototype application, that is built on top of one such platform, called FIESTA-IoT. The application provides citizens with an understanding of the environment they live in with both local and global surrounding view.
+
+## Citation
+
+> R. Agarwal, D. Farnandez , L. Sanchez, J. Lanza,  N. Georgantas, V. Issarny, "EnMonitor: Experimentation over Large-scale Semantically Annotated Federated IoT data environment", (Submitted) Deme track The Web Conference 2018 (WWW), Lyon
+
 ## Installation
 
 We have chosen the Express (Node.js) framework to build the application server (backend). At client side, a typical combination of Javascript + HTML, including various popular libraries that deal with graphical outputs, such as Leaflet, Turf or D3.
