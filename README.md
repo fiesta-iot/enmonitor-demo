@@ -1,8 +1,8 @@
 # EnMonitor Demo
 
-> (Dynamic) harvest of IoT-based data in a testbed agnostic manner. In layman’s terms, we aim at retrieving data from sensors coming from heterogeneous platforms (as the ones that compose the FIESTA-IoT federation) in a single and common solution.  
-
-##Installation
+> IoT applications are usually built on top of proprietary platforms that collect data from IoT devices. Furthermore, most applications rely on proprietary datasets, coming from their own sources. Thereby needing to deal with issues like interoperability and heterogeneity in the data. A solution is to add another layer (a platform in the middle that addresses the above-mentioned issues) and then build applications that use data made available via such platforms. As a proof of concept, we present EnMonitor, a prototype application, that is built on top of one such platform, called FIESTA-IoT. The application provides citizens with an understanding of the environment they live in with both local and global surrounding view.
+ 
+## Installation
 
 We have chosen the Express (Node.js) framework to build the application server (backend). At client side, a typical combination of Javascript + HTML, including various popular libraries that deal with graphical outputs, such as Leaflet, Turf or D3.
 
@@ -40,8 +40,8 @@ Where:
 
 Apart from this application, we strongly recommend that you refer to the following list of documents, which will help you understand how this experiments works behind the curtains:
 
-- [FIESTA-IoT 'in-house' experiments](http://fiesta-iot.eu/index.php/fiesta-experiments/)
-- [Handbook for experimenters and extensions](http://moodle.fiesta-iot.eu/pluginfile.php/711/mod_resource/content/2/FIESTA-IoT_Handbook4ThirdParties_v1.0.pdf)
+- [FIESTA-IoT Ontology](http://ontology.fiesta-iot.eu)
+- [Handbook for experimenters and extensions](http://moodle.fiesta-iot.eu/pluginfile.php/711/mod_resource/content/5/FIESTA-IoT_Handbook4ThirdParties_v4.0.pdf)
 - [Moodle platform](http://moodle.fiesta-iot.eu/)
 
 ## Contact
