@@ -21,13 +21,14 @@ Now, you should have everything ready to run the server.
 (Of course, there are many other alternatives, but we show here the legacy one)
 
 Nonetheless, to make it work accordingly you still need to configure some stuff as, for security reasons, we have kept hidden our very own credentials of some of the services that the application will use at run time. For the sake of having them altogether, the file *config.yaml*, located in the *config* folder, contains the following elements:
+
 ```
 production:
   iot_registry: 'https://platform.fiesta-iot.eu/iot-registry/api'
-  mapbox_style: 'username/code' 
-  mapbox_access_token: 'token'
-  openam_user: 'user'
-  openam_password: 'password'
+  mapbox_style: '<username/code>' 
+  mapbox_access_token: '<token>'
+  openam_user: '<user>'
+  openam_password: '<password>'
   openam_authentication_endpoint: 'https://platform.fiesta-iot.eu/openam/json/authenticate'    
 ```
 
