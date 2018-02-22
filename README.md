@@ -4,7 +4,7 @@
 
 ## Citation
 
-> R. Agarwal, D. Farnandez , L. Sanchez, J. Lanza,  N. Georgantas, V. Issarny, "EnMonitor: Experimentation over Large-scale Semantically Annotated Federated IoT data environment", (Submitted) Deme track The Web Conference 2018 (WWW), Lyon
+> R. Agarwal, D. Farnandez , L. Sanchez, J. Lanza,  N. Georgantas, V. Issarny, "EnMonitor: Experimentation over Large-scale Semantically Annotated Federated IoT data environment"
 
 ## Installation
 
